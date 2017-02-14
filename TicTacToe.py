@@ -44,146 +44,92 @@ def printBoard():
   print("\n"*2)
   
 def player1():
-  cmd = input("Player 1 - Enter Location: ").split(", ")
-  if board[int(cmd[0])][int(cmd[1])] == " ":
-    board[int(cmd[0])][int(cmd[1])] = letter1.upper()
+  [x, y] = input("Player 1 - Enter Location: ").split(",")
+  x = int(x.strip())
+  y = int(y.strip())
+  if board[x][y] == " ":
+    board[x][y] = letter1.upper()
   else:
     print("You cannot draw there!")
     player1()
 
 def player2():
-  cmd = input("Player 2 - Enter Location: ").split(", ")
-  if board[int(cmd[0])][int(cmd[1])] == " ":
-    board[int(cmd[0])][int(cmd[1])] = letter2.upper()
+  [x, y] = input("Player 2 - Enter Location: ").split(",")
+  x = int(x.strip())
+  y = int(y.strip())
+  if board[x][y] == " ":
+    board[x][y] = letter2.upper()
   else:
     print("You cannot draw there!")
     player2()
+
+def check_rows(symbol, player_name):
+  for y in range(1, 5):
+    # If the WHOLE row is filled, then you win.
+    num_filled = 0
+    for x in range(1, 5):
+      if board[x][y] == symbol.upper():
+        num_filled += 1
+    if num_filled == 4:
+      print(player_name + " has won the match!")
+      return True
+
+def check_columns(symbol, player_name):
+  for x in range(1, 5):
+    # If the WHOLE column is filled, then you win.
+    num_filled = 0
+    for y in range(1, 5):
+      if board[x][y] == symbol.upper():
+        num_filled += 1
+    if num_filled == 4:
+      print(player_name + " has won the match!")
+      return True
+
+def check_diagnol_1(symbol, player_name):
+  num_filled = 0
+  for i in range(1, 5):
+    if board[i][i] == symbol.upper():
+      num_filled += 1
+  if num_filled == 4:
+    print(player_name + " has won the match!")
+    return True
+
+def check_diagnol_2(symbol, player_name):
+  num_filled = 0
+  for i in range(1, 5):
+    if board[i][5-i] == symbol.upper():
+      num_filled += 1
+  if num_filled == 4:
+    print(player_name + " has won the match!")
+    return True
+
+def check_for_win():
+  if check_rows(letter1, 'Player 1'):
+    return True
+  if check_rows(letter2, 'Player 2'):
+    return True
+  if check_columns(letter1, 'Player 1'):
+    return True
+  if check_columns(letter2, 'Player 2'):
+    return True
+  if check_diagnol_1(letter1, 'Player 1'):
+    return True
+  if check_diagnol_1(letter2, 'Player 2'):
+    return True
+  if check_diagnol_2(letter1, 'Player 1'):
+    return True
+  if check_diagnol_2(letter2, 'Player 2'):
+    return True
 
 while True:
   player1()
   printBoard()
   
-  if board[1][1] == letter1.upper() and board[2][1] == letter1.upper() and board[3][1] == letter1.upper() and board[4][1] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][2] == letter1.upper() and board[2][2] == letter1.upper() and board[3][2] == letter1.upper() and board[4][2] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][3] == letter1.upper() and board[2][3] == letter1.upper() and board[3][3] == letter1.upper() and board[4][3] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][4] == letter1.upper() and board[2][4] == letter1.upper() and board[3][4] == letter1.upper() and board[4][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][1] == letter1.upper() and board[1][2] == letter1.upper() and board[1][3] == letter1.upper() and board[1][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[2][1] == letter1.upper() and board[2][2] == letter1.upper() and board[2][3] == letter1.upper() and board[2][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[3][1] == letter1.upper() and board[3][2] == letter1.upper() and board[3][3] == letter1.upper() and board[3][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[4][1] == letter1.upper() and board[4][2] == letter1.upper() and board[4][3] == letter1.upper() and board[4][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][1] == letter1.upper() and board[2][2] == letter1.upper() and board[3][3] == letter1.upper() and board[4][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[4][1] == letter1.upper() and board[3][2] == letter1.upper() and board[2][3] == letter1.upper() and board[1][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][1] == letter2.upper() and board[2][1] == letter2.upper() and board[3][1] == letter2.upper() and board[4][1] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[1][2] == letter2.upper() and board[2][2] == letter2.upper() and board[3][2] == letter2.upper() and board[4][2] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[1][3] == letter2.upper() and board[2][3] == letter2.upper() and board[3][3] == letter2.upper() and board[4][3] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[1][4] == letter2.upper() and board[2][4] == letter2.upper() and board[3][4] == letter2.upper() and board[4][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[1][1] == letter2.upper() and board[1][2] == letter2.upper() and board[1][3] == letter2.upper() and board[1][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[2][1] == letter2.upper() and board[2][2] == letter2.upper() and board[2][3] == letter2.upper() and board[2][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[3][1] == letter2.upper() and board[3][2] == letter2.upper() and board[3][3] == letter2.upper() and board[3][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[4][1] == letter2.upper() and board[4][2] == letter2.upper() and board[4][3] == letter2.upper() and board[4][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[1][1] == letter2.upper() and board[2][2] == letter2.upper() and board[3][3] == letter2.upper() and board[4][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[4][1] == letter2.upper() and board[3][2] == letter2.upper() and board[2][3] == letter2.upper() and board[1][4] == letter2.upper():
-    print("Player 2 has won the match!")
+  if check_for_win():
     break
 
   player2()
   printBoard()
   
-  if board[1][1] == letter1.upper() and board[2][1] == letter1.upper() and board[3][1] == letter1.upper() and board[4][1] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][2] == letter1.upper() and board[2][2] == letter1.upper() and board[3][2] == letter1.upper() and board[4][2] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][3] == letter1.upper() and board[2][3] == letter1.upper() and board[3][3] == letter1.upper() and board[4][3] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][4] == letter1.upper() and board[2][4] == letter1.upper() and board[3][4] == letter1.upper() and board[4][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][1] == letter1.upper() and board[1][2] == letter1.upper() and board[1][3] == letter1.upper() and board[1][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[2][1] == letter1.upper() and board[2][2] == letter1.upper() and board[2][3] == letter1.upper() and board[2][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[3][1] == letter1.upper() and board[3][2] == letter1.upper() and board[3][3] == letter1.upper() and board[3][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[4][1] == letter1.upper() and board[4][2] == letter1.upper() and board[4][3] == letter1.upper() and board[4][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][1] == letter1.upper() and board[2][2] == letter1.upper() and board[3][3] == letter1.upper() and board[4][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[4][1] == letter1.upper() and board[3][2] == letter1.upper() and board[2][3] == letter1.upper() and board[1][4] == letter1.upper():
-    print("Player 1 has won the match!")
-    break
-  elif board[1][1] == letter2.upper() and board[2][1] == letter2.upper() and board[3][1] == letter2.upper() and board[4][1] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[1][2] == letter2.upper() and board[2][2] == letter2.upper() and board[3][2] == letter2.upper() and board[4][2] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[1][3] == letter2.upper() and board[2][3] == letter2.upper() and board[3][3] == letter2.upper() and board[4][3] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[1][4] == letter2.upper() and board[2][4] == letter2.upper() and board[3][4] == letter2.upper() and board[4][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[1][1] == letter2.upper() and board[1][2] == letter2.upper() and board[1][3] == letter2.upper() and board[1][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[2][1] == letter2.upper() and board[2][2] == letter2.upper() and board[2][3] == letter2.upper() and board[2][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[3][1] == letter2.upper() and board[3][2] == letter2.upper() and board[3][3] == letter2.upper() and board[3][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[4][1] == letter2.upper() and board[4][2] == letter2.upper() and board[4][3] == letter2.upper() and board[4][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[1][1] == letter2.upper() and board[2][2] == letter2.upper() and board[3][3] == letter2.upper() and board[4][4] == letter2.upper():
-    print("Player 2 has won the match!")
-    break
-  elif board[4][1] == letter2.upper() and board[3][2] == letter2.upper() and board[2][3] == letter2.upper() and board[1][4] == letter2.upper():
-    print("Player 2 has won the match!")
+  if check_for_win():
     break
